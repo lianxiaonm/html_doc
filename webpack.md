@@ -89,7 +89,7 @@
 
 * inject    -- 注入所有的资源
     ``` javascript
-    inject：'body'   //将所有JavaScript资源防止到body底部
+    inject：'body'   //将所有JavaScript资源放置到body底部
     ```
 * chunksSortMode    -- 对chuck排序
     ``` javascript
