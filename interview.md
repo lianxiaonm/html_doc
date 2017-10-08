@@ -8,6 +8,7 @@
         var obj = new M();
     3、 var p = Object.create(); //  .. Object.create方法
     ```
+
 * js new Foo()发生了什么
     ```
     1.创建了一个新对象
@@ -171,8 +172,8 @@
         ```
     3. JSONP原理
         ```
-        基本原理：利用script标签的异步加载特性实现
-        给服务端传一个回调函数，服务器返回一个传递过去的回调函数名称的JS代码
+        基本原理：利用script标签的异步加载特性实现给服务端传一个回调函数，服务器返回一个传递过去的回调函数名称
+        的JS代码
         ```
     4. CORS跨域问题 [博客](http://newhtml.net/using-cors/)
         ```
