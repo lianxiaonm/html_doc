@@ -134,6 +134,9 @@
         3、浮层的点击增加小延迟。
     ```
 
+* [JavaScript 浮点数陷阱及解法](https://github.com/camsong/blog/issues/9)
+
+
 ## 前端杂谈
 * 说说HTML5中有趣的标签
     ```
@@ -360,6 +363,8 @@
     ```
 * Vue2.x
 * React
+   1. [pReact](https://zhuanlan.zhihu.com/p/30796007)
+   2. [inferno](http://infernojs.org)
 * Angular1.x
 
 
