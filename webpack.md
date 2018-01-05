@@ -14,7 +14,7 @@
 * Loaders 加载器
 * Plugins 插件
 
-``` javascript
+```javascript
     module.exports = {
         entry  : {
             //... string|Array<string>  --单一入口
@@ -50,10 +50,44 @@
 ## webpack loaders
 > 用于对模块的源代码进行转换，在书写的时候可以`省去`loader。例如：css-loader可以写作css。以下为常用的loader。[webpack loader list](http://webpack.github.io/docs/list-of-loaders.html)
 
-* css-loader
 * babel-loader
 * url-loader
 * vue-loader
+* css-loader 之 postcss-loader
+    ```javascript
+    // postcss config
+    const px2rem       = require('postcss-pxtorem');
+    const autofixer    = require('autoprefixer')
+    .
+    .
+    module.exports.postcss = {
+        loader : 'postcss-loader',
+        options: {
+            plugins: () => [
+                autofixer(),
+                px2rem({
+                rootValue        : 100,
+                propList         : ['*'],
+                selectorBlackList: [/^html$/],
+                minPixelValue    : 2,
+                })
+            ]
+        }
+    }
+    ..
+    // webpack core rules
+    const { postcss } = require('...')
+    .
+    .
+    {
+        test: /\.(css|less)$/,
+        use : _extract.extract({
+          fallback  : 'style-loader',
+          use       : ['css-loader', 'less-loader', postcss],
+          publicPath: '../'
+        })
+    }
+    ```
 
 
 ## webpack插件
@@ -65,7 +99,7 @@
 > 提取共有css样式
 
 * loader中使用
-    ``` javascript
+    ```javascript
     {
         test  : /\.(css|less)$/,
         loader: ExtractTextPlugin.extract("style", "css!less", {

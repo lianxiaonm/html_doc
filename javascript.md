@@ -1,9 +1,11 @@
 > 这是JavaScript知识点的一个集合。
 
-## JavaScript 浮点数陷阱及解法
+#### JavaScript 浮点数陷阱及解法
+-----------
 > [参考](https://zhuanlan.zhihu.com/p/30703042)
 
-## Microtasks Macrotasks
+#### Microtasks Macrotasks
+-----------
 > [参考](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
 
 * microtasks:
@@ -20,7 +22,8 @@
     I/O
     ```
 
-## 关于babel的 stage-X 概念
+#### 关于babel的 stage-X 概念
+-----------
 ```
 Stage 0 - Strawman（展示阶段）
 Stage 1 - Proposal（征求意见阶段）
@@ -30,7 +33,8 @@ Stage 4 - Finished（定案阶段）
 ```
 
 
-## ES6
+#### ES6
+-----------
 > [ECMAScript 6 入门](http://es6.ruanyifeng.com/)
 
 * `let`中注意点
@@ -100,7 +104,6 @@ Stage 4 - Finished（定案阶段）
         {x} = {x: 1};
         // SyntaxError: syntax error
         // 正确的写法
-        let x;
         ({x} = {x: 1});
         ```
     4. 特殊解构
@@ -195,3 +198,18 @@ Stage 4 - Finished（定案阶段）
         4. `Object.getOwnPropertySymbols(obj)` 返回自身的所有的所有所有属性，包括Symbol属性
         5. `Reflect.ownKeys(obj)` 返回自身的所有属性，all
     4. `getOwnPropertyDescriptors` ES2017引入 。。 返回对象所有自身属性的描述对象
+    5. `super`关键字
+    6. Null 传导运算符 -- `提案`
+        ```
+        // 老的写法
+        const firstName = (message
+          && message.body
+          && message.body.user
+          && message.body.user.firstName) || 'default';
+        // 新写法
+        const firstName = message?.body?.user?.firstName || 'default';
+        ```
+* `Symbol` 类型 -- `待定`
+* `Promise` 对象
+* `Generator` 函数
+
