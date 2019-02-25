@@ -10,7 +10,7 @@
     ```
 
 * js new Foo()发生了什么
-    ```
+    ```markdown
     1.创建了一个新对象
     2.将this指向这个新对象
     3.执行构造函数里面的代码
@@ -19,7 +19,7 @@
 
 * js 实现继承的方式
     1. 借用构造函数实现继承
-        ```
+        ```javascript
         function Parent1(){
             this.name = "parent1"
         }
@@ -30,7 +30,7 @@
         //缺点：Child1无法继承Parent1的原型对象，并没有真正的实现继承（部分继承）
         ```
     2. 借用原型链实现继承
-        ```
+        ```javascript
         function Parent2(){
             this.name = "parent2";
             this.play = [1,2,3];
@@ -42,7 +42,7 @@
         //缺点：原型对象的属性是共享的
         ```
     3. 组合式继承
-        ```
+        ```javascript
         function Parent3(){
             this.name = "parent3";
             this.play = [1,2,3];
@@ -63,16 +63,16 @@
 
 * 什么是`闭包`、`作用域`、`原型`和`原型链`：
     1. 闭包：
-        ```
+        ```markdown
         专业:当一个内部函数被其外部函数之外的变量引用时，就形成了一个闭包
         个人理解：在非定义作用域出执行的方法都会产生闭包 -- 涉及到词法作用域和静态作用域
         特性：
-            1、所在作用域链中的参数和变量不会被垃圾回收机制回收 -- 也是缺点 会造成内存泄漏
-            2、内部函数被外部作用域的变量引用。
+            1. 所在作用域链中的参数和变量不会被垃圾回收机制回收 -- 也是缺点 会造成内存泄漏
+            2. 内部函数被外部作用域的变量引用。
         ```
     2. 作用域：一个function既是一个作用域
     3. 原型和原型链：
-        ```
+        ```markdown
         1. 所有的对象都有__proto__属性，该属性对应该对象的原型.
         2. 所有的函数对象都有prototype属性，该属性的值会被赋值给该函数创建的对象的_proto_属性.
         3. 所有的原型对象都有constructor属性，该属性对应创建所有指向该原型的实例的构造函数.
@@ -133,36 +133,65 @@
         2、A层阻止默认点击事件 -- e.preventDefault
         3、浮层的点击增加小延迟。
     ```
+* JavaScript中的`macrotask`(宏任务)和`microtask`(微任务)
+    1. `宏任务`
+        ```
+        是每次执行栈执行的代码就是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）
+        包括script整体代码，
+            setTimeout、
+            setInterval、
+            I/O、UI交互事件、
+            postMessage、
+            MessageChannel、
+            setImmediate(Node.js 环境)
+        ```
+    2.微任务
+    ```
+      是在当前 task 执行结束后立即执行的任务**。也就是说，在当前task任务后，下一个task之前，在渲染之前。
+      所以它的响应速度相比setTimeout（setTimeout是task）会更快，因为无需等渲染。
+      也就是说，在某一个macrotask执行完后，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）。
+      microtask主要包含：
+        Promise.then、
+        MutaionObserver、
+        process.nextTick(Node.js 环境)
+    ```
+* JavaScript任务运行机制
+
+    ![avatar](image/task.jpeg)
+    
+* promise中几点注意事项
+    1. promise构造函数是同步执行的，then方法是异步执行的
+    2. 
 
 * [JavaScript 浮点数陷阱及解法](https://github.com/camsong/blog/issues/9)
-
 
 ## 前端杂谈
 * 说说HTML5中有趣的标签
     ```
     如果代码写的语义化，有利于SEO。搜索引擎就会很容易的读懂该网页要表达的意思
     ```
-
 * 前端性能优化
     ```
-    雪碧图，移动端响应式图片，静态资源CDN，减少Dom操作（事件代理、fragment），压缩JS和CSS、HTML等，DNS预解析
+    雪碧图，
+    移动端响应式图片，
+    静态资源CDN，
+    减少Dom操作（事件代理、fragment），
+    压缩JS和CSS、HTML等，
+    DNS预解析
     ```
-
 * 浏览器渲染原理
-    <p align="center"><img src="image/webkitflow.png"></a></p>
+    ![avatar](image/webkitflow.png)
 
     ```
     1、HTML被解析成DOM Tree，CSS被解析成CSS Rule Tree
     2、把DOM Tree和CSS Rule Tree经过整合生成Render Tree（布局阶段）
     3、元素按照算出来的规则，把元素放到它该出现的位置，通过显卡画到屏幕上
     ```
-
 * script标签的`defer、async`的区别
     ```
     defer是在HTML解析完之后才会执行，如果是多个，按照加载的顺序依次执行
     async是在加载完成后立即执行，如果是多个，执行顺序和加载顺序无关
     ```
-
 * 同源与跨域
     1. 什么是同源策略？
         ```
@@ -297,6 +326,20 @@
     浏览器生成的随机密码并利用对称加密算法进行加密。
     ```
 
+* TCP的三次握手和四次挥手 [TCP的概述](https://juejin.im/post/5c078058f265da611c26c235)
+    ![avatar](image/tcp3-4.png)
+
+* http2.0相比http1.0的区别
+    ```
+    在 HTTP/1 中，每次请求都会建立一次HTTP连接，也就是我们常说的3次握手4次挥手，这个过程在一次请求过程中占用了相当长的时间，即使开启了 Keep-Alive ，解决了多次连接的问题，但是依然有两个效率上的问题：
+    * 第一个：串行的文件传输。当请求a文件时，b文件只能等待，等待a连接到服务器、服务器处理文件、服务器返回文件，这三个步骤。我们假设这三步用时都是1秒，那么a文件用时为3秒，b文件传输完成用时为6秒，依此类推。（注：此项计算有一个前提条件，就是浏览器和服务器是单通道传输）
+    * 第二个：连接数过多。我们假设Apache设置了最大并发数为300，因为浏览器限制，浏览器发起的最大请求数为6，也就是服务器能承载的最高并发为50，当第51个人访问时，就需要等待前面某个请求处理完成。
+    HTTP/2的多路复用就是为了解决上述的两个性能问题。
+    在 HTTP/2 中，有两个非常重要的概念，分别是帧（frame）和流（stream）。
+    帧代表着最小的数据单位，每个帧会标识出该帧属于哪个流，流也就是多个帧组成的数据流。
+    多路复用，就是在一个 TCP 连接中可以存在多条流。换句话说，也就是可以发送多个请求，对端可以通过帧中的标识知道属于哪个请求。通过这个技术，可以避免 HTTP 旧版本中的队头阻塞问题，极大的提高传输性能。
+    ```
+
 * UTF-8和Unicode的区别
     ```
     UTF-8就是在互联网上使用最广的一种unicode的实现方式。
@@ -365,6 +408,14 @@
 * React
    1. [pReact](https://zhuanlan.zhihu.com/p/30796007)
    2. [inferno](http://infernojs.org)
+   
+   * react中的setState的同步和异步
+   ```text
+    在React的setState函数实现中，会根据一个变量isBatchingUpdates判断是直接更新this.state还是放到队列中回头再说，
+    而isBatchingUpdates默认是false，也就表示setState会同步更新this.state，但是，有一个函数batchedUpdates，
+    这个函数会把isBatchingUpdates修改为true，而当React在调用事件处理函数之前就会调用这个batchedUpdates，造成的后果，
+    就是由React控制的事件处理过程setState不会同步更新this.state
+    ```
 * Angular1.x
 
 

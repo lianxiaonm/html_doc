@@ -39,13 +39,15 @@ Stage 4 - Finished（定案阶段）
 
 * `let`中注意点
     1. TDZ(暂时性死区) -- `使用let命令声明变量之前，该变量都是不可用的` -- babel之后不会存在这样的问题
+       (。)
         ```javascript
         // typeof 不在是一个100%安全的操作
         typeof x;   // ReferenceError
         typeof b;   // undefined
         let x;
         ```
-    2. 不存在变量提升
+    2. 不存在变量提升 -- `错误` --  `以let/const声明的变量，的确也是有提升(hoist)的作用.只是因为TDZ的作用，并不会像使用var来声明变量，
+        只是会得到undefined而已，现在则是会直接抛出ReferenceError错误`
         ```javascript
         // var 的情况
         console.log(foo); // 输出undefined
