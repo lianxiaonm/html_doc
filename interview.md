@@ -161,9 +161,16 @@
     
 * promise中几点注意事项
     1. promise构造函数是同步执行的，then方法是异步执行的
-    2. 
 
 * [JavaScript 浮点数陷阱及解法](https://github.com/camsong/blog/issues/9)
+
+* WebSocket
+    1. 原理：
+        1. WebSocket协议基于TCP协议实现，包含初始的握手过程，以及后续的多次数据帧双向传输过程。
+    2. 优点
+        1. 通过第一次HTTP Request建立了连接之后，后续的数据交换都不用再重新发送HTTP Request，节省了带宽资源
+        2. WebSocket的连接是双向通信的连接，在同一个TCP连接上，既可以发送，也可以接收
+        3. 具有多路复用的功能(multiplexing)，也即几个不同的URI可以复用同一个WebSocket连接
 
 ## 前端杂谈
 * 说说HTML5中有趣的标签
@@ -408,8 +415,7 @@
 * React
    1. [pReact](https://zhuanlan.zhihu.com/p/30796007)
    2. [inferno](http://infernojs.org)
-   
-   * react中的setState的同步和异步
+   3. react中的setState的同步和异步
    ```text
     在React的setState函数实现中，会根据一个变量isBatchingUpdates判断是直接更新this.state还是放到队列中回头再说，
     而isBatchingUpdates默认是false，也就表示setState会同步更新this.state，但是，有一个函数batchedUpdates，

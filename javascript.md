@@ -103,7 +103,7 @@ Stage 4 - Finished（定案阶段）
         ```javascript
         // 错误的写法
         let x;
-        {x} = {x: 1};
+        { x } = {x: 1};
         // SyntaxError: syntax error
         // 正确的写法
         ({x} = {x: 1});
