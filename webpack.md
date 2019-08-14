@@ -32,17 +32,14 @@
         target: 'node',     //构建目标
         devtool: '',        //用于错误调试更总
         module : {
-            loaders: [
-                {
-                    test:/\.(js|jsx)$/,     //正则
-                    loader:'babel'          //加载器
-                }
-                ...
-            ]
+            loaders: [{
+                test:/\.(js|jsx)$/,     //正则
+                loader:'babel'          //加载器
+            }/* ... */]
         },
         plugins: [
             new webpack.optimize.DedupePlugin(),
-            ...
+            //...
         ]
     }
 ```
@@ -58,8 +55,7 @@
     // postcss config
     const px2rem       = require('postcss-pxtorem');
     const autofixer    = require('autoprefixer')
-    .
-    .
+    //...
     module.exports.postcss = {
         loader : 'postcss-loader',
         options: {
@@ -74,11 +70,10 @@
             ]
         }
     }
-    ..
+    //...
     // webpack core rules
     const { postcss } = require('...')
-    .
-    .
+    //...
     {
         test: /\.(css|less)$/,
         use : _extract.extract({
@@ -100,9 +95,9 @@
 
 * loader中使用
     ```javascript
-    {
-        test  : /\.(css|less)$/,
-        loader: ExtractTextPlugin.extract("style", "css!less", {
+    miniConfig = {
+        test : /\.(css|less)$/,
+        loader : ExtractTextPlugin.extract("style", "css!less", {
             publicPath: '../'
         })
     }
@@ -112,22 +107,25 @@
 > 合并所有模块的共有代码
 
 * 提取运行期的代码:
-    ``` javascript
+    ```javascript
      new webpack.optimize.CommonsChunkPlugin({
          name: ["framework", "manifest"] // "manifest" 为提取运行期代码，确保公用文件缓存
-     }),
+     })
     ```
 
 #### HtmlWebpackPlugin
 > 生成html文件，在webpack建构文件存在hash的时候。这个插件可以及时更新html文件中引用文件的hash
 
 * inject    -- 注入所有的资源
-    ``` javascript
-    inject：'body'   //将所有JavaScript资源放置到body底部
+    ```javascript
+    mini = {  
+      //将所有JavaScript资源放置到body底部
+      inject: 'body'   
+    }
     ```
 * chunksSortMode    -- 对chuck排序
-    ``` javascript
-    chunksSortMode: function (chunk1, chunk2) {
+    ```javascript
+    chunksSortMode = function(chunk1, chunk2) {
         var order  = ['manifest', 'adaptive', 'plugin', 'framework', appName];
         var order1 = order.indexOf(chunk1.names[0]);
         var order2 = order.indexOf(chunk2.names[0]);
@@ -137,9 +135,8 @@
 
 #### HotModuleReplacementPlugin
 > webpack热部署的插件
-
-``` javascript
-    devServer: {
+```javascript
+    devServer = {
         hot: true, // 告诉 dev-server 我们在使用 HMR
         contentBase: path.resolve(__dirname, 'dist'),
         publicPath: '/'

@@ -384,7 +384,8 @@
     ```
 
 ## Web安全问题
-* XSS漏洞 [Cross-Site Scripting](https://en.wikipedia.org/wiki/Cross-site_scripting)
+* XSS漏洞:跨站脚本攻击 [Cross-Site Scripting](https://en.wikipedia.org/wiki/Cross-site_scripting)
+    > 通过利用网页开发时留下的漏洞，通过巧妙的方法注入恶意指令代码到网页，使用户加载并执行攻击者恶意制造的网页程序
     ```
     解决办法:
         1、在不同上下文中，使用合适的 escape 方式
@@ -392,12 +393,15 @@
         3、使用cookie的httpOnly属性，加上了这个属性的cookie字段，js是无法进行读写的
         4、使用innerHTML、document.write的时候，如果数据是用户输入的，那么需要对象关键字符进行过滤与转义
     ```
-* CSRF漏洞 [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
+* CSRF漏洞:跨站点请求伪造 [Cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery)
+    * 检测：抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交还有效，那么基本上可以确定存在CSRF漏洞
     ```
     解决办法:
-        1、给所有请求加上 token 检查。token 一般是随机字符串，只需确保其不可预测性即可
-        2、检查 referer -- 无法防御自身的攻击
+        1、给所有请求加上 token 检查。token 一般是随机字符串，只需确保其不可预测性即可 --无法保证token的安全性
+        2、验证 HTTP Referer 字段 -- 无法防御自身的攻击
+        3、在 HTTP 头中自定义属性并验证 -- 需要修改所有请求为XMLHttpRequest，修改代价巨大
     ```
+    
 
 ## Webpack
 * webpack的

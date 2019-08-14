@@ -5,7 +5,7 @@
 
 ### react
 * 无状态组件
-    ```javascript
+    ```jsx harmony
     export default props => <div>Hello {props.name}</div>
     ```
     优点：
@@ -18,11 +18,13 @@
 
 * 路由写法
 
+* 源码剖析
+
 
 ### vue
 * 路由写法 -- 按需加载 `需要简化`
 
-    ```
+    ```javascript
     import VueRouter from 'vue-router'
     const routes = [
         require('../routers/indexRouter').default,
@@ -30,7 +32,7 @@
     return new VueRouter(router)
     ```
 
-    ```
+    ```javascript
     exports.default = {
       path     : '/',
       component: resolve => require(['../pages/index.vue'], resolve)
@@ -44,7 +46,7 @@
     2. inferno源框架不支持自定义事件。需要修改inferno模块中的`delegatedEvents`对象 然后修改webpack的`alias`
 * 路由写法  -- 按需加载
 
-    ```javascript
+    ```jsx harmony
     import Inferno from 'inferno'
     import { Route, createRoutes } from 'inferno-router'
 
@@ -108,8 +110,8 @@
         }
       }
     }
-    ...
-    ...
+    //...
+    //...
     function handleEvent(name, lastEvent, nextEvent, dom) {
       var delegatedRoots = delegatedEvents$1.get(name);
       if (nextEvent) {
