@@ -16,14 +16,14 @@
 * 源码剖析
   * React fiber 原理
   ![avatar](image/react-fiber1.png)
-    1. Fiber 是 React 的一个执行单元，在 React 16 之后，React 将整个渲染任务拆分成了一个个的小任务进行处理，每一个小任务指的就是 Fiber 节点的构建。 拆分的小任务会在浏览器的空闲时间被执行
+    1. Fiber 是 React 的一个执行单元，在 React 16 之后，React 将整个渲染任务拆分成了一个个的小任务进行处理，每一个小任务指的就是 Fiber 节点的构建。 拆分的小任务会在浏览器的空闲时间被执行(`requestIdleCallback`)
     2. Fiber 是一种数据结构，支撑 Fiber 构建任务的运转。当某一个 Fiber 任务执行完成后，怎样去找下一个要执行的 Fiber 任务呢？React 通过链表结构找到下一个要执行的任务单元
     3. Fiber 架构有两个阶段，render 阶段就是负责构架 Fiber 对象和链表，而 commit 阶段就是负责去构建 DOM
 
 
   * React 合成事件(SyntheticEvent)
     1. React 上注册的事件最终会绑定在document这个 DOM 上，而不是 React 组件对应的 DOM(减少内存开销就是因为所有的事件都绑定在 document 上，其他节点没有绑定事件)
-    2. 更好的兼容性和跨平台, 方便事件统一管理（如事务机制）
+    2. 更好的兼容性和跨平台, 方便事件统一管理
 
   * React diff
   ![avatar](image/react-diff.png)
@@ -35,6 +35,12 @@
         2. 对于新增的节点，直接插入到相应位置。
         3. 对于旧节点中已经不存在的节点，直接删除。
     5. 在比较过程中，React 会尽可能地复用已有的节点，以最小化 DOM 操作的次数。同时，React 还提供了一些优化手段，如 shouldComponentUpdate 和 React.memo，让开发者可以在需要时自定义组件更新的逻辑和条件。
+
+* 问答
+  1. 为什么不能在条件语句中使用Hooks？
+      1. `依赖Hook 调用顺序`：React 依赖于Hook 调用的固定顺序来识别和关联状态。每次组件渲染时，React 会根据Hook 在组件内的调用顺序来找到对应的 useState 或 useEffect 等。
+      2. `打破状态匹配`：如果Hook 在条件语句中，那么在某些渲染周期中可能会跳过Hook 的调用，而在另一些渲染周期中又会调用它。当条件改变时，Hook 的调用顺序就会改变，导致React 无法找到正确的状态，从而引发bug。
+      3. `状态管理混乱`：允许在条件分支内创建状态，会让组件的状态逻辑难以理解和维护，因为状态的生命周期不再与组件本身绑定，而是依赖于运行时的条件。
 
 
 ### vue
