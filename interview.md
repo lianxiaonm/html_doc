@@ -295,6 +295,28 @@
             2、在页面header中使用link标签来强制对DNS预解析:
                 <link rel="dns-prefetch" href="http://bdimg.share.baidu.com" />
         ```
+    11. 提升LCP（最大内容绘制）的优化策略：
+        1. 优化图片和视频：
+            * 压缩图片：减小图片文件大小，提高加载速度。
+            使用现代图片格式：例如WebP，比传统格式（如JPEG）更小。
+            * 实现懒加载：只加载用户滚动到可见区域的内容，延迟加载非关键图片和视频。
+            * 使用响应式图片：根据设备和屏幕尺寸提供不同大小的图片，避免加载不必要的大文件。
+        2. 优化关键资源和渲染路径：
+            * 优先加载关键资源：使用 <link rel="preload"> 预加载影响LCP的关键图片或字体，让浏览器尽早请求这些资源。
+            * 内联关键CSS：:将首屏渲染所需的最少CSS内联到HTML中，让页面快速可见。
+            * 优化字体加载：采用更优的字体加载策略，减少字体文件对渲染的阻塞。
+        3. 减少服务器响应时间（TTFB）：
+            * 使用CDN（内容分发网络）：加速静态资源的加载，缩短用户与服务器的距离。
+            * 优化服务器性能：提高服务器处理请求的速度，缩短第一次接收到HTML文档的时间。
+            * 合理使用缓存：确保缓存设置得当，避免不必要的数据传输，减少TTFB。
+        4. 管理第三方脚本：
+            * 移除或延迟非必要的第三方脚本：减少对核心内容加载的阻塞。
+            * 谨慎集成第三方服务：例如广告、分析工具等，注意它们的加载和执行是否会影响页面性能。
+    12. 提升FCP（首次内容绘制）的优化策略：
+        1. 缩短TTFB：这是实现良好FCP和LCP的基础，因为TTFB过高可能导致浏览器下载大量阻止渲染的资源。
+        2. 避免服务器重定向：减少服务器重定向的数量，确保用户直接访问最终目标。
+        3. 优化JavaScript：异步加载JavaScript，避免其阻塞页面渲染。
+        4. 减少DOM 操作：优化页面结构，减少不必要的DOM节点，可以帮助浏览器更快地渲染内容。
 
 * DOM事件类
 
@@ -401,31 +423,6 @@
         2、验证 HTTP Referer 字段 -- 无法防御自身的攻击
         3、在 HTTP 头中自定义属性并验证 -- 需要修改所有请求为XMLHttpRequest，修改代价巨大
     ```
-    
 
-## Webpack
-* webpack的
-
-
-
-## Framework（Vue2.x Angular1.x React...）
-* 三大框架的共同特点：
-    ```
-    Vue2.x的mixins      -- 混合功能
-    React的extend        -- 继承
-    Angular1.x的decorator   -- 装饰器
-    ```
-* Vue2.x
-* React
-   1. [pReact](https://zhuanlan.zhihu.com/p/30796007)
-   2. [inferno](http://infernojs.org)
-   3. react中的setState的同步和异步
-   ```text
-    在React的setState函数实现中，会根据一个变量isBatchingUpdates判断是直接更新this.state还是放到队列中回头再说，
-    而isBatchingUpdates默认是false，也就表示setState会同步更新this.state，但是，有一个函数batchedUpdates，
-    这个函数会把isBatchingUpdates修改为true，而当React在调用事件处理函数之前就会调用这个batchedUpdates，造成的后果，
-    就是由React控制的事件处理过程setState不会同步更新this.state
-    ```
-* Angular1.x
 
 
