@@ -8,6 +8,12 @@
   2. Fiber 是一种数据结构，支撑 Fiber 构建任务的运转。当某一个 Fiber 任务执行完成后，怎样去找下一个要执行的 Fiber 任务呢？React fiber就是虚拟DOM，它是一个链表结构，返回了return、children、siblings，分别代表父fiber，子fiber和兄弟fiber
   3. Fiber 架构有两个阶段，render 阶段就是负责构架 Fiber 对象和链表，而 commit 阶段就是负责去构建 DOM
 
+* React hook原理
+![avatar](image/react-hook.png)
+  1. hooks 的实现就是基于 fiber 的，会在 fiber 节点上放一个链表，每个节点的 memorizedState 属性上存放了对应的数据，然后不同的 hooks api 使用对应的数据来完成不同的功能。
+  2. useRef、useCallback、useMemo，它们只是对值做了缓存，逻辑比较纯粹
+  3. useState 会触发 fiber 的 schedule，useEffect 也有自己的调度逻辑
+
 * React diff
 ![avatar](image/react-diff.png)
   1. 比较两棵树的根节点，如果不同，则认为整棵树需要更新。
@@ -20,6 +26,7 @@
   5. 在比较过程中，React 会尽可能地复用已有的节点，以最小化 DOM 操作的次数。同时，React 还提供了一些优化手段，如 shouldComponentUpdate 和 React.memo，让开发者可以在需要时自定义组件更新的逻辑和条件。
 
 #### 问答
+
 * 为什么不能在条件语句中使用Hooks？
     1. `依赖Hook 调用顺序`：React依赖于Hook调用的固定顺序来识别和关联状态。每次组件渲染时，React会根据Hook在组件内的调用顺序来找到对应的 useState 或 useEffect 等。
     2. `打破状态匹配`：如果Hook 在条件语句中，那么在某些渲染周期中可能会跳过Hook 的调用，而在另一些渲染周期中又会调用它。当条件改变时，Hook 的调用顺序就会改变，导致React 无法找到正确的状态，从而引发bug。
@@ -44,6 +51,9 @@
   3. 卸载: componentWillUnmount 
   4. 错误捕获: getDerivedStateFromError -> componentDidCatch
 
+* 性能优化的手段有哪些
+  1. 主要手段是通过`shouldComponentUpdate`、`PureComponent`、`React.memo`
+  2. 避免使用内联函数 / 使用 React Fragments 避免额外标记 / 使用 Immutable / 懒加载组件 / 事件绑定方式
 
 
 ### Vue
